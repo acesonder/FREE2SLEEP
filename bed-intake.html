@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bed Intake Form - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fr" class="lang-btn">FR</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="form-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-bed" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title">Emergency Bed Intake</h2>
+                <p style="color: var(--text-dark); max-width: 600px; margin: 0 auto;">
+                    Request emergency shelter accommodation. Available 24/7.
+                </p>
+            </div>
+
+            <form id="bed-intake-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Intake Form</h3>
+                
+                <div class="form-group">
+                    <label for="firstName">First Name <span class="form-required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name <span class="form-required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth <span class="form-required">*</span></label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="form-required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="arrivalDate">Arrival Date <span class="form-required">*</span></label>
+                    <input type="date" id="arrivalDate" name="arrivalDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="estimatedStay">Estimated Length of Stay</label>
+                    <select id="estimatedStay" name="estimatedStay" required>
+                        <option value="">Select duration</option>
+                        <option value="1-night">1 night</option>
+                        <option value="2-3-nights">2-3 nights</option>
+                        <option value="1-week">1 week</option>
+                        <option value="2-weeks">2 weeks</option>
+                        <option value="unsure">Unsure</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Contact Name</label>
+                    <input type="text" id="emergencyContact" name="emergencyContact">
+                </div>
+
+                <div class="form-group">
+                    <label for="emergencyPhone">Emergency Contact Phone</label>
+                    <input type="tel" id="emergencyPhone" name="emergencyPhone">
+                </div>
+
+                <div class="form-group">
+                    <label for="medicalConditions">Medical Conditions or Allergies</label>
+                    <textarea id="medicalConditions" name="medicalConditions" rows="3" 
+                              placeholder="Please list any medical conditions, allergies, or medications"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialNeeds">Special Accommodations Needed</label>
+                    <textarea id="specialNeeds" name="specialNeeds" rows="3" 
+                              placeholder="Accessibility needs, dietary restrictions, etc."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-check"></i> Submit Bed Request
+                </button>
+            </form>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-light); border-radius: 10px; text-align: center;">
+                <p style="color: var(--warning-color); font-weight: bold;">
+                    <i class="fas fa-exclamation-triangle"></i> Emergency? Call immediately: 
+                    <a href="tel:1-866-995-9933" style="color: var(--warning-color);">1-866-995-9933</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('arrivalDate').setAttribute('min', new Date().toISOString().split('T')[0]);
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Referral - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fr" class="lang-btn">FR</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="form-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-hand-holding-heart" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title">Service Referral Request</h2>
+                <p style="color: var(--text-dark); max-width: 600px; margin: 0 auto;">
+                    Request a referral to community services and support programs.
+                </p>
+            </div>
+
+            <form id="referral-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Your Information</h3>
+                
+                <div class="form-group">
+                    <label for="firstName">First Name <span class="form-required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name <span class="form-required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="form-required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email">
+                </div>
+
+                <h3 style="color: var(--primary-color); margin: 2rem 0 1.5rem;">Referral Request</h3>
+
+                <div class="form-group">
+                    <label for="serviceType">Type of Service Needed <span class="form-required">*</span></label>
+                    <select id="serviceType" name="serviceType" required>
+                        <option value="">Select service type</option>
+                        <option value="mental-health">Mental Health Services</option>
+                        <option value="addiction">Addiction Treatment</option>
+                        <option value="medical">Medical/Healthcare</option>
+                        <option value="dental">Dental Services</option>
+                        <option value="employment">Employment Services</option>
+                        <option value="housing">Housing Support</option>
+                        <option value="legal">Legal Aid</option>
+                        <option value="financial">Financial Assistance</option>
+                        <option value="food">Food Bank/Meal Programs</option>
+                        <option value="clothing">Clothing/Personal Items</option>
+                        <option value="counseling">Counseling Services</option>
+                        <option value="education">Education/Training</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="childcare">Childcare Services</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="urgency">Urgency Level <span class="form-required">*</span></label>
+                    <select id="urgency" name="urgency" required>
+                        <option value="">Select urgency</option>
+                        <option value="emergency">Emergency - Immediate need</option>
+                        <option value="urgent">Urgent - Within 1 week</option>
+                        <option value="soon">Soon - Within 1 month</option>
+                        <option value="general">General - Flexible timing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Describe Your Needs <span class="form-required">*</span></label>
+                    <textarea id="description" name="description" rows="4" required 
+                              placeholder="Please provide details about the services you need and why"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="previousServices">Have you accessed similar services before?</label>
+                    <select id="previousServices" name="previousServices">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="barriers">Are there any barriers preventing you from accessing services?</label>
+                    <textarea id="barriers" name="barriers" rows="3" 
+                              placeholder="e.g., transportation, childcare, language, mobility, etc."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredContact">Preferred Contact Method</label>
+                    <select id="preferredContact" name="preferredContact">
+                        <option value="phone">Phone Call</option>
+                        <option value="text">Text Message</option>
+                        <option value="email">Email</option>
+                        <option value="in-person">In Person</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Referral Request
+                </button>
+            </form>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-dark);">
+                    <i class="fas fa-info-circle" style="color: var(--secondary-color);"></i>
+                    View our <a href="service-providers.html" style="color: var(--secondary-color); font-weight: bold;">Local Service Provider Directory</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Management - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fr" class="lang-btn">FR</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding: 3rem 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <i class="fas fa-clipboard-list" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title">Case Management Services</h2>
+                <p style="color: var(--text-dark); max-width: 700px; margin: 0 auto;">
+                    Personalized support to help you achieve your goals and navigate services.
+                </p>
+            </div>
+
+            <!-- Overview Section -->
+            <section style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">What is Case Management?</h3>
+                <p style="line-height: 1.8; margin-bottom: 1rem;">
+                    Case management is a collaborative process that involves assessment, planning, facilitation, care coordination, 
+                    evaluation, and advocacy for options and services to meet an individual's comprehensive needs.
+                </p>
+                <p style="line-height: 1.8;">
+                    Our case managers work one-on-one with clients to develop personalized plans, connect to resources, 
+                    and provide ongoing support to help achieve stability and independence.
+                </p>
+            </section>
+
+            <!-- Services Offered -->
+            <section style="margin-bottom: 3rem;">
+                <h3 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">
+                    Our Case Management Services
+                </h3>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fas fa-user-check"></i>
+                        <h4 style="color: var(--primary-color);">Individual Assessment</h4>
+                        <p>Comprehensive evaluation of needs, strengths, and goals</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-tasks"></i>
+                        <h4 style="color: var(--primary-color);">Goal Planning</h4>
+                        <p>Develop personalized action plans with achievable milestones</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-link"></i>
+                        <h4 style="color: var(--primary-color);">Service Coordination</h4>
+                        <p>Connect to community resources and support services</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-file-alt"></i>
+                        <h4 style="color: var(--primary-color);">Documentation Support</h4>
+                        <p>Help with applications, forms, and required paperwork</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-handshake"></i>
+                        <h4 style="color: var(--primary-color);">Advocacy</h4>
+                        <p>Support in accessing rights and navigating systems</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <h4 style="color: var(--primary-color);">Follow-up Support</h4>
+                        <p>Regular check-ins to monitor progress and adjust plans</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Client Portal -->
+            <section style="background: var(--bg-light); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Client Portal</h3>
+                <div style="max-width: 500px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                    <form id="clientLoginForm">
+                        <div class="form-group">
+                            <label for="clientId">Client ID</label>
+                            <input type="text" id="clientId" name="clientId" placeholder="Enter your client ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientDob">Date of Birth</label>
+                            <input type="date" id="clientDob" name="clientDob">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-sign-in-alt"></i> Access My Case File
+                        </button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--text-dark);">
+                        Don't have a Client ID? <a href="client-intake.html" style="color: var(--secondary-color);">Complete intake assessment</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Case Manager Info -->
+            <section style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Meet Our Case Management Team</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                        <i class="fas fa-user-circle" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                        <h4 style="color: var(--primary-color);">Sarah Johnson</h4>
+                        <p style="font-weight: bold; color: var(--text-dark);">Senior Case Manager</p>
+                        <p style="font-size: 0.9rem;">Housing & Stabilization</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                        <i class="fas fa-user-circle" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                        <h4 style="color: var(--primary-color);">Michael Chen</h4>
+                        <p style="font-weight: bold; color: var(--text-dark);">Case Manager</p>
+                        <p style="font-size: 0.9rem;">Employment & Education</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                        <i class="fas fa-user-circle" style="font-size: 4rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                        <h4 style="color: var(--primary-color);">Emily Rodriguez</h4>
+                        <p style="font-weight: bold; color: var(--text-dark);">Case Manager</p>
+                        <p style="font-size: 0.9rem;">Health & Wellness</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Get Started -->
+            <section style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; padding: 3rem 2rem; border-radius: 10px; text-align: center;">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Get Started?</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Take the first step towards achieving your goals. Our case managers are here to support you.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="client-intake.html" class="btn" style="background: var(--accent-color); color: white;">
+                        <i class="fas fa-file-alt"></i> Complete Intake Assessment
+                    </a>
+                    <a href="tel:1-866-995-9933" class="btn" style="background: white; color: var(--primary-color);">
+                        <i class="fas fa-phone"></i> Call 1-866-995-9933
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('clientLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const clientId = document.getElementById('clientId').value;
+            const clientDob = document.getElementById('clientDob').value;
+            
+            if (clientId && clientDob) {
+                // Demo: Show message
+                if (window.FREE2SLEEP && window.FREE2SLEEP.showNotification) {
+                    window.FREE2SLEEP.showNotification('Client portal access coming soon. Please contact your case manager.', 'info');
+                } else {
+                    alert('Client portal access coming soon. Please contact your case manager.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shower Program Sign Up - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active" aria-label="English">EN</button>
+        <button id="lang-fr" class="lang-btn" aria-label="Français">FR</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html" data-en="← Back to Home" data-fr="← Retour à l'accueil">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="form-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-shower" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title" data-en="Shower Program Sign Up" data-fr="Inscription au programme de douche">Shower Program Sign Up</h2>
+                <p style="color: var(--text-dark); max-width: 600px; margin: 0 auto;" 
+                   data-en="Sign up for our free shower program. Clean, safe facilities available daily." 
+                   data-fr="Inscrivez-vous à notre programme de douche gratuit. Installations propres et sûres disponibles quotidiennement.">
+                    Sign up for our free shower program. Clean, safe facilities available daily.
+                </p>
+            </div>
+
+            <!-- Program Information -->
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;" 
+                    data-en="Program Details" data-fr="Détails du programme">Program Details</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Free access to clean shower facilities" data-fr="Accès gratuit à des installations de douche propres">Free access to clean shower facilities</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Towels and basic hygiene products provided" data-fr="Serviettes et produits d'hygiène de base fournis">Towels and basic hygiene products provided</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="30-minute time slots available" data-fr="Créneaux de 30 minutes disponibles">30-minute time slots available</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Open daily from 7:00 AM to 9:00 PM" data-fr="Ouvert tous les jours de 7h00 à 21h00">Open daily from 7:00 AM to 9:00 PM</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Private, secure facilities" data-fr="Installations privées et sécurisées">Private, secure facilities</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sign Up Form -->
+            <form id="shower-signup-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;" 
+                    data-en="Sign Up Form" data-fr="Formulaire d'inscription">Sign Up Form</h3>
+                
+                <div class="form-group">
+                    <label for="firstName" data-en="First Name" data-fr="Prénom">First Name</label>
+                    <span class="form-required">*</span>
+                    <input type="text" id="firstName" name="firstName" required 
+                           aria-required="true" placeholder="Enter your first name">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" data-en="Last Name" data-fr="Nom de famille">Last Name</label>
+                    <span class="form-required">*</span>
+                    <input type="text" id="lastName" name="lastName" required 
+                           aria-required="true" placeholder="Enter your last name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label>
+                    <span class="form-required">*</span>
+                    <input type="tel" id="phone" name="phone" required 
+                           aria-required="true" placeholder="(555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" data-en="Email (Optional)" data-fr="Email (Optionnel)">Email (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredDate" data-en="Preferred Date" data-fr="Date préférée">Preferred Date</label>
+                    <span class="form-required">*</span>
+                    <input type="date" id="preferredDate" name="preferredDate" required 
+                           aria-required="true" min="">
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredTime" data-en="Preferred Time" data-fr="Heure préférée">Preferred Time</label>
+                    <span class="form-required">*</span>
+                    <select id="preferredTime" name="preferredTime" required aria-required="true">
+                        <option value="" data-en="Select a time slot" data-fr="Sélectionnez un créneau horaire">Select a time slot</option>
+                        <option value="07:00">7:00 AM</option>
+                        <option value="08:00">8:00 AM</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                        <option value="17:00">5:00 PM</option>
+                        <option value="18:00">6:00 PM</option>
+                        <option value="19:00">7:00 PM</option>
+                        <option value="20:00">8:00 PM</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialNeeds" data-en="Special Accommodations Needed?" data-fr="Aménagements spéciaux nécessaires?">Special Accommodations Needed?</label>
+                    <textarea id="specialNeeds" name="specialNeeds" rows="3" 
+                              placeholder="Let us know if you need any special accommodations"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="terms" required aria-required="true">
+                        <span data-en="I agree to the program terms and conditions" 
+                              data-fr="J'accepte les termes et conditions du programme">
+                            I agree to the program terms and conditions
+                        </span>
+                        <span class="form-required">*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-check"></i> 
+                    <span data-en="Submit Sign Up" data-fr="Soumettre l'inscription">Submit Sign Up</span>
+                </button>
+            </form>
+
+            <!-- Additional Information -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-dark);">
+                    <i class="fas fa-info-circle" style="color: var(--secondary-color);"></i>
+                    <span data-en="Questions? Call us at " data-fr="Des questions? Appelez-nous au ">Questions? Call us at </span>
+                    <a href="tel:1-866-995-9933" style="color: var(--secondary-color); font-weight: bold;">1-866-995-9933</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('preferredDate');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        });
+    </script>
+</body>
+</html>

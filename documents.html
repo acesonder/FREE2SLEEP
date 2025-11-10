@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Sharing - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fr" class="lang-btn">FR</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html">← Back to Home</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding: 3rem 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-folder-open" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title">Document Sharing</h2>
+                <p style="color: var(--text-dark); max-width: 600px; margin: 0 auto;">
+                    Securely share and access important documents with your case manager and support team.
+                </p>
+            </div>
+
+            <!-- Upload Section -->
+            <section style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
+                    <i class="fas fa-upload"></i> Upload Document
+                </h3>
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="documentTitle">Document Title <span class="form-required">*</span></label>
+                        <input type="text" id="documentTitle" name="documentTitle" required 
+                               placeholder="e.g., ID Document, Medical Record">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentType">Document Type <span class="form-required">*</span></label>
+                        <select id="documentType" name="documentType" required>
+                            <option value="">Select type</option>
+                            <option value="identification">Identification</option>
+                            <option value="medical">Medical Records</option>
+                            <option value="financial">Financial Documents</option>
+                            <option value="legal">Legal Documents</option>
+                            <option value="housing">Housing Documents</option>
+                            <option value="employment">Employment Records</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentFile">Select File <span class="form-required">*</span></label>
+                        <input type="file" id="documentFile" name="documentFile" required
+                               accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                               style="padding: 0.5rem; border: 2px dashed var(--border-color); width: 100%; border-radius: 5px;">
+                        <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
+                            Accepted formats: PDF, Word, JPEG, PNG (Max 10MB)
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentNotes">Notes (Optional)</label>
+                        <textarea id="documentNotes" name="documentNotes" rows="3"
+                                  placeholder="Add any additional information about this document"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Document
+                    </button>
+                </form>
+            </section>
+
+            <!-- Document List -->
+            <section style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">
+                    <i class="fas fa-folder"></i> My Documents
+                </h3>
+
+                <div class="document-list" id="documentList">
+                    <!-- Sample documents -->
+                    <div class="document-item">
+                        <div class="document-info">
+                            <i class="fas fa-file-pdf"></i>
+                            <div>
+                                <div style="font-weight: bold; color: var(--primary-color);">Sample Identification</div>
+                                <div style="font-size: 0.85rem; color: #666;">Uploaded: Jan 15, 2025 • Type: Identification</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-small btn-secondary" onclick="viewDocument('sample1')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-small" style="background: var(--warning-color); color: white;" 
+                                    onclick="deleteDocument('sample1')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="document-info">
+                            <i class="fas fa-file-word"></i>
+                            <div>
+                                <div style="font-weight: bold; color: var(--primary-color);">Medical Records Summary</div>
+                                <div style="font-size: 0.85rem; color: #666;">Uploaded: Jan 10, 2025 • Type: Medical</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-small btn-secondary" onclick="viewDocument('sample2')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-small" style="background: var(--warning-color); color: white;" 
+                                    onclick="deleteDocument('sample2')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="document-info">
+                            <i class="fas fa-file-image"></i>
+                            <div>
+                                <div style="font-weight: bold; color: var(--primary-color);">Housing Application</div>
+                                <div style="font-size: 0.85rem; color: #666;">Uploaded: Jan 5, 2025 • Type: Housing</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-small btn-secondary" onclick="viewDocument('sample3')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-small" style="background: var(--warning-color); color: white;" 
+                                    onclick="deleteDocument('sample3')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="noDocuments" style="display: none; text-align: center; padding: 2rem; color: #666;">
+                    <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                    <p>No documents uploaded yet.</p>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-light); border-radius: 10px;">
+                <h4 style="color: var(--primary-color); margin-bottom: 1rem;">
+                    <i class="fas fa-shield-alt"></i> Privacy & Security
+                </h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check" style="color: var(--success-color);"></i>
+                        All documents are encrypted and securely stored
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check" style="color: var(--success-color);"></i>
+                        Only authorized staff and your case manager can access your documents
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check" style="color: var(--success-color);"></i>
+                        You control what documents to share and when
+                    </li>
+                    <li style="margin-bottom: 0.5rem;">
+                        <i class="fas fa-check" style="color: var(--success-color);"></i>
+                        Documents are retained according to privacy regulations
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Handle document upload
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('documentTitle').value;
+            const type = document.getElementById('documentType').value;
+            const file = document.getElementById('documentFile').files[0];
+            
+            if (file && file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+            
+            // Simulate upload
+            const docList = document.getElementById('documentList');
+            const newDoc = document.createElement('div');
+            newDoc.className = 'document-item';
+            newDoc.style.animation = 'fadeInUp 0.5s ease';
+            
+            const icon = getFileIcon(file.name);
+            const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            
+            newDoc.innerHTML = `
+                <div class="document-info">
+                    <i class="${icon}"></i>
+                    <div>
+                        <div style="font-weight: bold; color: var(--primary-color);">${title}</div>
+                        <div style="font-size: 0.85rem; color: #666;">Uploaded: ${date} • Type: ${type}</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-small btn-secondary" onclick="viewDocument('${Date.now()}')">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="btn btn-small" style="background: var(--warning-color); color: white;" 
+                            onclick="deleteDocument('${Date.now()}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            docList.insertBefore(newDoc, docList.firstChild);
+            
+            // Reset form
+            this.reset();
+            
+            // Show notification
+            if (window.FREE2SLEEP && window.FREE2SLEEP.showNotification) {
+                window.FREE2SLEEP.showNotification('Document uploaded successfully!', 'success');
+            }
+        });
+
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': 'fas fa-file-pdf',
+                'doc': 'fas fa-file-word',
+                'docx': 'fas fa-file-word',
+                'jpg': 'fas fa-file-image',
+                'jpeg': 'fas fa-file-image',
+                'png': 'fas fa-file-image'
+            };
+            return icons[ext] || 'fas fa-file';
+        }
+
+        function viewDocument(id) {
+            if (window.FREE2SLEEP && window.FREE2SLEEP.showNotification) {
+                window.FREE2SLEEP.showNotification('Opening document viewer...', 'info');
+            } else {
+                alert('Opening document viewer...');
+            }
+        }
+
+        function deleteDocument(id) {
+            if (confirm('Are you sure you want to delete this document?')) {
+                // Find and remove the document item
+                event.target.closest('.document-item').remove();
+                
+                if (window.FREE2SLEEP && window.FREE2SLEEP.showNotification) {
+                    window.FREE2SLEEP.showNotification('Document deleted successfully', 'success');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Section (shown when not authenticated) -->
+    <div id="loginSection" class="admin-login">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">
+            <i class="fas fa-lock"></i> Admin Login
+        </h2>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label for="passcode">Enter Passcode <span class="form-required">*</span></label>
+                <input type="password" id="passcode" name="passcode" required 
+                       placeholder="Enter admin passcode" 
+                       aria-label="Admin passcode"
+                       autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Login
+            </button>
+        </form>
+        <p style="text-align: center; margin-top: 1rem;">
+            <a href="index.html" style="color: var(--secondary-color);">← Back to Home</a>
+        </p>
+    </div>
+
+    <!-- Dashboard Section (shown when authenticated) -->
+    <div id="dashboardSection" style="display: none;">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1>FREE2SLEEP Admin</h1>
+                </div>
+                <ul class="nav-menu" style="display: flex;">
+                    <li><a href="index.html">← Back to Site</a></li>
+                    <li><a href="#" id="logoutBtn" style="background: var(--warning-color); padding: 0.5rem 1rem; border-radius: 5px;">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="admin-dashboard">
+            <div class="container">
+                <h2 class="section-title">Admin Dashboard</h2>
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">
+                    Welcome to the FREE2SLEEP administration panel. Manage all aspects of the crisis centre from here.
+                </p>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid" style="margin-bottom: 3rem;">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-number" id="adminClientCount">0</div>
+                        <div class="stat-label">Active Clients</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-bed"></i>
+                        <div class="stat-number" id="adminBedCount">0</div>
+                        <div class="stat-label">Available Beds</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-number" id="adminAppointments">0</div>
+                        <div class="stat-label">Today's Appointments</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="stat-number" id="adminPendingForms">0</div>
+                        <div class="stat-label">Pending Forms</div>
+                    </div>
+                </div>
+
+                <!-- Admin Functions -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>Client Intake</h3>
+                        <p>View and manage client intake forms</p>
+                        <a href="#" onclick="viewData('client-intake-form')" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-bed"></i>
+                        <h3>Bed Management</h3>
+                        <p>Manage bed intake and availability</p>
+                        <a href="#" onclick="viewData('bed-intake-form')" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>Case Management</h3>
+                        <p>Access case files and notes</p>
+                        <a href="case-management.html" class="btn btn-small btn-primary">Manage</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-shower"></i>
+                        <h3>Shower Program</h3>
+                        <p>View shower program signups</p>
+                        <a href="#" onclick="viewData('shower-signup-form')" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>Laundry Program</h3>
+                        <p>View laundry registrations</p>
+                        <a href="#" onclick="viewData('laundry-registration-form')" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3>Referrals</h3>
+                        <p>Manage service referrals</p>
+                        <a href="#" onclick="viewData('referral-form')" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Messages</h3>
+                        <p>View and respond to messages</p>
+                        <a href="messaging.html" class="btn btn-small btn-primary">Open</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-folder"></i>
+                        <h3>Documents</h3>
+                        <p>Access shared documents</p>
+                        <a href="documents.html" class="btn btn-small btn-primary">View</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Reports</h3>
+                        <p>Generate statistical reports</p>
+                        <a href="#" onclick="generateReport()" class="btn btn-small btn-primary">Generate</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <i class="fas fa-cog"></i>
+                        <h3>Settings</h3>
+                        <p>System configuration</p>
+                        <a href="#" onclick="alert('Settings panel coming soon')" class="btn btn-small btn-primary">Configure</a>
+                    </div>
+                </div>
+
+                <!-- Data Viewer Modal -->
+                <div id="dataModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; overflow-y: auto;">
+                    <div style="max-width: 1000px; margin: 50px auto; background: white; padding: 2rem; border-radius: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                            <h2 id="modalTitle" style="color: var(--primary-color);">Data Viewer</h2>
+                            <button onclick="closeModal()" style="background: none; border: none; font-size: 2rem; cursor: pointer;">&times;</button>
+                        </div>
+                        <div id="modalContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Admin authentication
+        const ADMIN_PASSCODE = '079777';
+        let isAuthenticated = false;
+
+        // Check if already authenticated
+        window.addEventListener('DOMContentLoaded', function() {
+            const authenticated = sessionStorage.getItem('adminAuth');
+            if (authenticated === 'true') {
+                showDashboard();
+            }
+        });
+
+        // Handle login
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const passcode = document.getElementById('passcode').value;
+            
+            if (passcode === ADMIN_PASSCODE) {
+                sessionStorage.setItem('adminAuth', 'true');
+                isAuthenticated = true;
+                showDashboard();
+                showNotification('Login successful!', 'success');
+            } else {
+                showNotification('Invalid passcode. Please try again.', 'error');
+                document.getElementById('passcode').value = '';
+            }
+        });
+
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            loadDashboardStats();
+        }
+
+        // Logout
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.id === 'logoutBtn') {
+                e.preventDefault();
+                sessionStorage.removeItem('adminAuth');
+                location.reload();
+            }
+        });
+
+        // Load dashboard statistics
+        function loadDashboardStats() {
+            // Load from localStorage
+            const clientIntakes = JSON.parse(localStorage.getItem('client-intake-form') || '[]');
+            const bedIntakes = JSON.parse(localStorage.getItem('bed-intake-form') || '[]');
+            const showerSignups = JSON.parse(localStorage.getItem('shower-signup-form') || '[]');
+            const referrals = JSON.parse(localStorage.getItem('referral-form') || '[]');
+            
+            document.getElementById('adminClientCount').textContent = clientIntakes.length;
+            document.getElementById('adminBedCount').textContent = Math.max(0, 24 - bedIntakes.length);
+            document.getElementById('adminAppointments').textContent = showerSignups.filter(s => {
+                const date = new Date(s.preferredDate);
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }).length;
+            document.getElementById('adminPendingForms').textContent = 
+                clientIntakes.length + bedIntakes.length + referrals.length;
+        }
+
+        // View data function
+        function viewData(formType) {
+            const data = JSON.parse(localStorage.getItem(formType) || '[]');
+            const modal = document.getElementById('dataModal');
+            const content = document.getElementById('modalContent');
+            const title = document.getElementById('modalTitle');
+            
+            // Set title
+            const titles = {
+                'client-intake-form': 'Client Intake Forms',
+                'bed-intake-form': 'Bed Intake Forms',
+                'shower-signup-form': 'Shower Program Signups',
+                'laundry-registration-form': 'Laundry Program Registrations',
+                'referral-form': 'Service Referrals'
+            };
+            title.textContent = titles[formType] || 'Data Viewer';
+            
+            // Display data
+            if (data.length === 0) {
+                content.innerHTML = '<p style="text-align: center; color: var(--text-dark);">No data available yet.</p>';
+            } else {
+                let tableHTML = '<table class="data-table"><thead><tr>';
+                
+                // Get keys from first object
+                const keys = Object.keys(data[0]).filter(k => k !== 'id');
+                keys.forEach(key => {
+                    tableHTML += `<th>${formatKey(key)}</th>`;
+                });
+                tableHTML += '</tr></thead><tbody>';
+                
+                // Add data rows
+                data.forEach(item => {
+                    tableHTML += '<tr>';
+                    keys.forEach(key => {
+                        const value = item[key] || 'N/A';
+                        tableHTML += `<td>${escapeHtml(String(value))}</td>`;
+                    });
+                    tableHTML += '</tr>';
+                });
+                
+                tableHTML += '</tbody></table>';
+                content.innerHTML = tableHTML;
+            }
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('dataModal').style.display = 'none';
+        }
+
+        // Format key for display
+        function formatKey(key) {
+            return key.split(/(?=[A-Z])/).join(' ')
+                .replace(/^./, str => str.toUpperCase())
+                .replace(/_/g, ' ');
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Generate report
+        function generateReport() {
+            const reportData = {
+                generatedAt: new Date().toISOString(),
+                clientIntakes: JSON.parse(localStorage.getItem('client-intake-form') || '[]').length,
+                bedIntakes: JSON.parse(localStorage.getItem('bed-intake-form') || '[]').length,
+                showerSignups: JSON.parse(localStorage.getItem('shower-signup-form') || '[]').length,
+                laundryRegistrations: JSON.parse(localStorage.getItem('laundry-registration-form') || '[]').length,
+                referrals: JSON.parse(localStorage.getItem('referral-form') || '[]').length
+            };
+            
+            const reportHTML = `
+                <h3>Statistical Report</h3>
+                <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
+                <table class="data-table">
+                    <tr><td>Client Intakes</td><td>${reportData.clientIntakes}</td></tr>
+                    <tr><td>Bed Intakes</td><td>${reportData.bedIntakes}</td></tr>
+                    <tr><td>Shower Program Signups</td><td>${reportData.showerSignups}</td></tr>
+                    <tr><td>Laundry Registrations</td><td>${reportData.laundryRegistrations}</td></tr>
+                    <tr><td>Service Referrals</td><td>${reportData.referrals}</td></tr>
+                </table>
+            `;
+            
+            document.getElementById('modalTitle').textContent = 'Statistical Report';
+            document.getElementById('modalContent').innerHTML = reportHTML;
+            document.getElementById('dataModal').style.display = 'block';
+        }
+
+        // Notification function (use from main.js if available)
+        function showNotification(message, type) {
+            if (window.FREE2SLEEP && window.FREE2SLEEP.showNotification) {
+                window.FREE2SLEEP.showNotification(message, type);
+            } else {
+                alert(message);
+            }
+        }
+
+        // Close modal on outside click
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('dataModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
