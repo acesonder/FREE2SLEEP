@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake Assessment - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active">EN</button>
+        <button id="lang-fr" class="lang-btn">FR</button>
+    </div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="form-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-file-alt" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title">Client Intake Assessment</h2>
+                <p style="color: var(--text-dark); max-width: 700px; margin: 0 auto;">
+                    Complete this comprehensive assessment to help us understand your needs and provide the best support.
+                </p>
+            </div>
+
+            <form id="client-intake-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">Personal Information</h3>
+                
+                <div class="form-group">
+                    <label for="firstName">First Name <span class="form-required">*</span></label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name <span class="form-required">*</span></label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth <span class="form-required">*</span></label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender Identity</label>
+                    <select id="gender" name="gender">
+                        <option value="">Prefer not to say</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="form-required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email">
+                </div>
+
+                <h3 style="color: var(--primary-color); margin: 2rem 0 1.5rem;">Current Situation</h3>
+
+                <div class="form-group">
+                    <label for="housingStatus">Current Housing Status <span class="form-required">*</span></label>
+                    <select id="housingStatus" name="housingStatus" required>
+                        <option value="">Select status</option>
+                        <option value="homeless">Currently homeless</option>
+                        <option value="shelter">In shelter</option>
+                        <option value="couch-surfing">Couch surfing</option>
+                        <option value="unstable">Unstable housing</option>
+                        <option value="at-risk">At risk of homelessness</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="homelessDuration">How long have you been experiencing housing instability?</label>
+                    <select id="homelessDuration" name="homelessDuration">
+                        <option value="">Select duration</option>
+                        <option value="less-than-week">Less than a week</option>
+                        <option value="1-4-weeks">1-4 weeks</option>
+                        <option value="1-6-months">1-6 months</option>
+                        <option value="6-12-months">6-12 months</option>
+                        <option value="over-1-year">Over 1 year</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="employment">Employment Status</label>
+                    <select id="employment" name="employment">
+                        <option value="">Select status</option>
+                        <option value="employed-full">Employed full-time</option>
+                        <option value="employed-part">Employed part-time</option>
+                        <option value="unemployed">Unemployed</option>
+                        <option value="disability">On disability</option>
+                        <option value="student">Student</option>
+                        <option value="retired">Retired</option>
+                    </select>
+                </div>
+
+                <h3 style="color: var(--primary-color); margin: 2rem 0 1.5rem;">Services Needed</h3>
+
+                <div class="form-group">
+                    <label>What services are you interested in? (Check all that apply)</label>
+                    <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem;">
+                        <label><input type="checkbox" name="services" value="shelter"> Emergency Shelter</label>
+                        <label><input type="checkbox" name="services" value="case-management"> Case Management</label>
+                        <label><input type="checkbox" name="services" value="shower"> Shower Program</label>
+                        <label><input type="checkbox" name="services" value="laundry"> Laundry Services</label>
+                        <label><input type="checkbox" name="services" value="mental-health"> Mental Health Support</label>
+                        <label><input type="checkbox" name="services" value="addiction"> Addiction Services</label>
+                        <label><input type="checkbox" name="services" value="employment"> Employment Assistance</label>
+                        <label><input type="checkbox" name="services" value="housing"> Housing Support</label>
+                        <label><input type="checkbox" name="services" value="medical"> Medical Services</label>
+                        <label><input type="checkbox" name="services" value="legal"> Legal Aid</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="immediateNeeds">What are your most immediate needs? <span class="form-required">*</span></label>
+                    <textarea id="immediateNeeds" name="immediateNeeds" rows="4" required 
+                              placeholder="Please describe your most urgent needs"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalInfo">Additional Information</label>
+                    <textarea id="additionalInfo" name="additionalInfo" rows="3" 
+                              placeholder="Any other information you'd like to share"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="consent" required>
+                        I consent to sharing this information with FREE2SLEEP staff for the purpose of providing services
+                        <span class="form-required">*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-check"></i> Submit Assessment
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

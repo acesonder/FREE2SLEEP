@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry Program Registration - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button id="lang-en" class="lang-btn active" aria-label="English">EN</button>
+        <button id="lang-fr" class="lang-btn" aria-label="Français">FR</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="color: white; text-decoration: none;">FREE2SLEEP</a></h1>
+            </div>
+            <ul class="nav-menu" style="display: flex;">
+                <li><a href="index.html" data-en="← Back to Home" data-fr="← Retour à l'accueil">← Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="form-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-tshirt" style="font-size: 4rem; color: var(--secondary-color);"></i>
+                <h2 class="section-title" data-en="Laundry Program Registration" data-fr="Inscription au programme de buanderie">Laundry Program Registration</h2>
+                <p style="color: var(--text-dark); max-width: 600px; margin: 0 auto;" 
+                   data-en="Register for our free laundry services. Washer and dryer access with detergent provided." 
+                   data-fr="Inscrivez-vous à nos services de buanderie gratuits. Accès aux laveuses et sécheuses avec détergent fourni.">
+                    Register for our free laundry services. Washer and dryer access with detergent provided.
+                </p>
+            </div>
+
+            <!-- Program Information -->
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;" 
+                    data-en="Program Benefits" data-fr="Avantages du programme">Program Benefits</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Free washing and drying services" data-fr="Services de lavage et séchage gratuits">Free washing and drying services</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Detergent and fabric softener provided" data-fr="Détergent et assouplissant fournis">Detergent and fabric softener provided</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="2-hour time slots available" data-fr="Créneaux de 2 heures disponibles">2-hour time slots available</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Open Monday to Saturday, 8:00 AM to 6:00 PM" data-fr="Ouvert du lundi au samedi, de 8h00 à 18h00">Open Monday to Saturday, 8:00 AM to 6:00 PM</span>
+                    </li>
+                    <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success-color); margin-right: 0.5rem;"></i> 
+                        <span data-en="Up to 2 loads per visit" data-fr="Jusqu'à 2 charges par visite">Up to 2 loads per visit</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="laundry-registration-form" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;" 
+                    data-en="Registration Form" data-fr="Formulaire d'inscription">Registration Form</h3>
+                
+                <div class="form-group">
+                    <label for="firstName" data-en="First Name" data-fr="Prénom">First Name</label>
+                    <span class="form-required">*</span>
+                    <input type="text" id="firstName" name="firstName" required 
+                           aria-required="true" placeholder="Enter your first name">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName" data-en="Last Name" data-fr="Nom de famille">Last Name</label>
+                    <span class="form-required">*</span>
+                    <input type="text" id="lastName" name="lastName" required 
+                           aria-required="true" placeholder="Enter your last name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" data-en="Phone Number" data-fr="Numéro de téléphone">Phone Number</label>
+                    <span class="form-required">*</span>
+                    <input type="tel" id="phone" name="phone" required 
+                           aria-required="true" placeholder="(555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="email" data-en="Email (Optional)" data-fr="Email (Optionnel)">Email (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="address" data-en="Current Address or Location" data-fr="Adresse actuelle ou emplacement">Current Address or Location</label>
+                    <input type="text" id="address" name="address" 
+                           placeholder="Enter your current location">
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredDay" data-en="Preferred Day of Week" data-fr="Jour de la semaine préféré">Preferred Day of Week</label>
+                    <span class="form-required">*</span>
+                    <select id="preferredDay" name="preferredDay" required aria-required="true">
+                        <option value="" data-en="Select a day" data-fr="Sélectionnez un jour">Select a day</option>
+                        <option value="Monday" data-en="Monday" data-fr="Lundi">Monday</option>
+                        <option value="Tuesday" data-en="Tuesday" data-fr="Mardi">Tuesday</option>
+                        <option value="Wednesday" data-en="Wednesday" data-fr="Mercredi">Wednesday</option>
+                        <option value="Thursday" data-en="Thursday" data-fr="Jeudi">Thursday</option>
+                        <option value="Friday" data-en="Friday" data-fr="Vendredi">Friday</option>
+                        <option value="Saturday" data-en="Saturday" data-fr="Samedi">Saturday</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredTime" data-en="Preferred Time Slot" data-fr="Créneau horaire préféré">Preferred Time Slot</label>
+                    <span class="form-required">*</span>
+                    <select id="preferredTime" name="preferredTime" required aria-required="true">
+                        <option value="" data-en="Select a time slot" data-fr="Sélectionnez un créneau horaire">Select a time slot</option>
+                        <option value="08:00-10:00">8:00 AM - 10:00 AM</option>
+                        <option value="10:00-12:00">10:00 AM - 12:00 PM</option>
+                        <option value="12:00-14:00">12:00 PM - 2:00 PM</option>
+                        <option value="14:00-16:00">2:00 PM - 4:00 PM</option>
+                        <option value="16:00-18:00">4:00 PM - 6:00 PM</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="numberOfLoads" data-en="Estimated Number of Loads" data-fr="Nombre estimé de charges">Estimated Number of Loads</label>
+                    <span class="form-required">*</span>
+                    <select id="numberOfLoads" name="numberOfLoads" required aria-required="true">
+                        <option value="1">1 load</option>
+                        <option value="2">2 loads</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="frequency" data-en="How often will you use this service?" data-fr="À quelle fréquence utiliserez-vous ce service?">How often will you use this service?</label>
+                    <span class="form-required">*</span>
+                    <select id="frequency" name="frequency" required aria-required="true">
+                        <option value="" data-en="Select frequency" data-fr="Sélectionnez la fréquence">Select frequency</option>
+                        <option value="Weekly" data-en="Weekly" data-fr="Hebdomadaire">Weekly</option>
+                        <option value="Bi-weekly" data-en="Bi-weekly" data-fr="Aux deux semaines">Bi-weekly</option>
+                        <option value="Monthly" data-en="Monthly" data-fr="Mensuel">Monthly</option>
+                        <option value="As needed" data-en="As needed" data-fr="Au besoin">As needed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalNeeds" data-en="Additional Needs or Comments" data-fr="Besoins supplémentaires ou commentaires">Additional Needs or Comments</label>
+                    <textarea id="additionalNeeds" name="additionalNeeds" rows="3" 
+                              placeholder="Any special requests or information we should know"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="terms" required aria-required="true">
+                        <span data-en="I agree to follow the program guidelines and respect facility rules" 
+                              data-fr="J'accepte de suivre les directives du programme et de respecter les règles de l'établissement">
+                            I agree to follow the program guidelines and respect facility rules
+                        </span>
+                        <span class="form-required">*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-check"></i> 
+                    <span data-en="Submit Registration" data-fr="Soumettre l'inscription">Submit Registration</span>
+                </button>
+            </form>
+
+            <!-- Additional Information -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-dark);">
+                    <i class="fas fa-info-circle" style="color: var(--secondary-color);"></i>
+                    <span data-en="Questions? Call us at " data-fr="Des questions? Appelez-nous au ">Questions? Call us at </span>
+                    <a href="tel:1-866-995-9933" style="color: var(--secondary-color); font-weight: bold;">1-866-995-9933</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 FREE2SLEEP. <span data-en="All rights reserved." data-fr="Tous droits réservés.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
