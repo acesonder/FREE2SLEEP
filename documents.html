@@ -214,20 +214,31 @@
             const icon = getFileIcon(file.name);
             const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             
+            // Escape HTML to prevent XSS
+            const escapeHtml = (text) => {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            };
+            
+            const safeTitle = escapeHtml(title);
+            const safeType = escapeHtml(type);
+            const docId = Date.now();
+            
             newDoc.innerHTML = `
                 <div class="document-info">
                     <i class="${icon}"></i>
                     <div>
-                        <div style="font-weight: bold; color: var(--primary-color);">${title}</div>
-                        <div style="font-size: 0.85rem; color: #666;">Uploaded: ${date} • Type: ${type}</div>
+                        <div style="font-weight: bold; color: var(--primary-color);">${safeTitle}</div>
+                        <div style="font-size: 0.85rem; color: #666;">Uploaded: ${date} • Type: ${safeType}</div>
                     </div>
                 </div>
                 <div style="display: flex; gap: 0.5rem;">
-                    <button class="btn btn-small btn-secondary" onclick="viewDocument('${Date.now()}')">
+                    <button class="btn btn-small btn-secondary" onclick="viewDocument('${docId}')">
                         <i class="fas fa-eye"></i> View
                     </button>
                     <button class="btn btn-small" style="background: var(--warning-color); color: white;" 
-                            onclick="deleteDocument('${Date.now()}')">
+                            onclick="deleteDocument('${docId}')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
