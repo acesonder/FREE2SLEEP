@@ -40,10 +40,12 @@ FREE2SLEEP is Northumberland County's premier crisis centre providing comprehens
 
 ### 🚀 Quick Start
 
-1. Open `index.html` in a web browser
-2. Navigate through the services
-3. Access admin dashboard with passcode: **079777**
-4. All forms save to browser localStorage (demo mode)
+1. Set up the MySQL database (see [DATABASE_SETUP.md](DATABASE_SETUP.md))
+2. Configure database connection in `api/config.php`
+3. Open the application in a web browser
+4. Navigate through the services
+5. Access admin dashboard with passcode: **079777**
+6. All forms save to MySQL database via PHP API
 
 ### 📞 Contact
 
@@ -62,20 +64,55 @@ FREE2SLEEP is Northumberland County's premier crisis centre providing comprehens
 ### 🛠️ Technical Details
 
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Backend:** PHP 7.4+ with MySQL 5.7+
+- **Database:** MySQL with PHPMyAdmin support
 - **Icons:** Font Awesome 6.4.0
-- **Storage:** Browser localStorage (demo mode)
-- **Hosting:** Static site (can be hosted anywhere)
+- **API:** RESTful PHP endpoints
+- **Hosting:** Requires PHP-enabled web server (Apache/Nginx)
 
 ### 🔒 Security
 
 - Passcode-protected admin area
-- Session-based authentication
+- Session-based authentication via PHP
+- SQL injection prevention with prepared statements
 - XSS protection through HTML escaping
-- HTTPS recommended for production
+- CORS configuration for API security
+- Secure password hashing with bcrypt
+- HTTPS required for production
 
 ### 🎯 Built From Durham Policy
 
 This crisis centre implementation follows the Durham policy framework for comprehensive support services.
+
+### 💾 Database Setup
+
+The application uses MySQL with PHP for data persistence. See [DATABASE_SETUP.md](DATABASE_SETUP.md) for detailed setup instructions.
+
+**Quick Setup:**
+1. Install XAMPP, MAMP, or LAMP stack
+2. Import `database/schema.sql` via PHPMyAdmin
+3. Configure `api/config.php` with your database credentials
+4. Access application through your web server
+
+**Database Features:**
+- Complete client intake management
+- Bed availability tracking
+- Program registration (shower/laundry)
+- Service referral system
+- Messaging and document management
+- Case management notes
+- User preferences storage
+- Secure admin authentication
+
+### 📊 PHPMyAdmin Integration
+
+Access and manage data through PHPMyAdmin:
+- View all submissions and registrations
+- Export data to Excel/CSV/PDF
+- Run custom queries and reports
+- Manage user accounts
+- Database backup and restore
+- Real-time data monitoring
 
 ---
 

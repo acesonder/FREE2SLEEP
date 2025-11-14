@@ -88,15 +88,25 @@ function switchLanguage(lang) {
     // Update HTML lang attribute
     document.documentElement.lang = lang;
     
-    // Save preference
-    localStorage.setItem('preferred-language', lang);
+    // Save preference to database
+    if (window.FREE2SLEEP_API) {
+        window.FREE2SLEEP_API.savePreferences(lang).catch(err => {
+            console.error('Failed to save language preference:', err);
+        });
+    }
 }
 
 // Load saved language preference
-function loadLanguagePreference() {
-    const savedLang = localStorage.getItem('preferred-language');
-    if (savedLang) {
-        switchLanguage(savedLang);
+async function loadLanguagePreference() {
+    try {
+        if (window.FREE2SLEEP_API) {
+            const result = await window.FREE2SLEEP_API.getPreferences();
+            if (result && result.data && result.data.preferred_language) {
+                switchLanguage(result.data.preferred_language);
+            }
+        }
+    } catch (err) {
+        console.error('Failed to load language preference:', err);
     }
 }
 
@@ -272,31 +282,62 @@ function validateField(field) {
     return isValid;
 }
 
-function handleFormSubmission(form) {
+async function handleFormSubmission(form) {
     // Show loading state
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
     submitButton.textContent = currentLanguage === 'en' ? 'Submitting...' : 'Envoi en cours...';
     
-    // Collect form data
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    
-    // Store in localStorage (for demo purposes)
-    const formType = form.id || 'general-form';
-    const existingData = JSON.parse(localStorage.getItem(formType) || '[]');
-    existingData.push({
-        ...data,
-        timestamp: new Date().toISOString(),
-        id: Date.now()
-    });
-    localStorage.setItem(formType, JSON.stringify(existingData));
-    
-    // Simulate submission
-    setTimeout(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
+    try {
+        // Collect form data
+        const formData = new FormData(form);
+        const data = mapFormDataToApi(form.id, formData);
+        
+        // Determine which API endpoint to call based on form ID
+        const formType = form.id || 'general-form';
+        let result;
+        
+        if (window.FREE2SLEEP_API) {
+            switch (formType) {
+                case 'client-intake-form':
+                    result = await window.FREE2SLEEP_API.createClientIntake(data);
+                    break;
+                case 'bed-intake-form':
+                    result = await window.FREE2SLEEP_API.createBedIntake(data);
+                    break;
+                case 'shower-signup-form':
+                    result = await window.FREE2SLEEP_API.createShowerSignup(data);
+                    break;
+                case 'laundry-registration-form':
+                    result = await window.FREE2SLEEP_API.createLaundryRegistration(data);
+                    break;
+                case 'referral-form':
+                    result = await window.FREE2SLEEP_API.createReferral(data);
+                    break;
+                default:
+                    console.warn('Unknown form type:', formType);
+                    // Fallback to localStorage for unknown forms
+                    const existingData = JSON.parse(localStorage.getItem(formType) || '[]');
+                    existingData.push({
+                        ...Object.fromEntries(formData.entries()),
+                        timestamp: new Date().toISOString(),
+                        id: Date.now()
+                    });
+                    localStorage.setItem(formType, JSON.stringify(existingData));
+                    result = { success: true };
+            }
+        } else {
+            // Fallback to localStorage if API not available
+            const existingData = JSON.parse(localStorage.getItem(formType) || '[]');
+            existingData.push({
+                ...Object.fromEntries(formData.entries()),
+                timestamp: new Date().toISOString(),
+                id: Date.now()
+            });
+            localStorage.setItem(formType, JSON.stringify(existingData));
+            result = { success: true };
+        }
         
         // Show success message
         showNotification(
@@ -306,7 +347,27 @@ function handleFormSubmission(form) {
         
         // Reset form
         form.reset();
-    }, 1500);
+        
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showNotification(
+            currentLanguage === 'en' ? 'Error submitting form. Please try again.' : 'Erreur lors de la soumission. Veuillez réessayer.',
+            'error'
+        );
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+    }
+}
+
+// Helper function from API client
+function mapFormDataToApi(formType, formData) {
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+        const camelKey = key.replace(/[-_](.)/g, (_, char) => char.toUpperCase());
+        data[camelKey] = value;
+    }
+    return data;
 }
 
 // Notification System

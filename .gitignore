@@ -1,0 +1,58 @@
+# FREE2SLEEP Git Ignore
+
+# Sensitive configuration files
+api/config.php.local
+.env
+.env.local
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Database backups
+*.sql
+!database/schema.sql
+
+# Logs
+*.log
+error_log
+php_errors.log
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules (if any)
+node_modules/
+package-lock.json
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Session files
+sessions/
+
+# Cache
+cache/
+*.cache
