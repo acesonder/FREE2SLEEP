@@ -162,6 +162,7 @@
         </div>
     </div>
 
+    <script src="js/api-client.js"></script>
     <script src="js/main.js"></script>
     <script>
         // Admin authentication
@@ -169,26 +170,56 @@
         let isAuthenticated = false;
 
         // Check if already authenticated
-        window.addEventListener('DOMContentLoaded', function() {
-            const authenticated = sessionStorage.getItem('adminAuth');
-            if (authenticated === 'true') {
-                showDashboard();
+        window.addEventListener('DOMContentLoaded', async function() {
+            if (window.FREE2SLEEP_API) {
+                try {
+                    const result = await window.FREE2SLEEP_API.checkAuth();
+                    if (result && result.data && result.data.authenticated) {
+                        showDashboard();
+                    }
+                } catch (err) {
+                    console.error('Auth check failed:', err);
+                }
+            } else {
+                // Fallback to sessionStorage
+                const authenticated = sessionStorage.getItem('adminAuth');
+                if (authenticated === 'true') {
+                    showDashboard();
+                }
             }
         });
 
         // Handle login
-        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const passcode = document.getElementById('passcode').value;
             
-            if (passcode === ADMIN_PASSCODE) {
-                sessionStorage.setItem('adminAuth', 'true');
-                isAuthenticated = true;
-                showDashboard();
-                showNotification('Login successful!', 'success');
+            if (window.FREE2SLEEP_API) {
+                try {
+                    const result = await window.FREE2SLEEP_API.login(passcode);
+                    if (result && result.success) {
+                        isAuthenticated = true;
+                        showDashboard();
+                        showNotification('Login successful!', 'success');
+                    } else {
+                        showNotification('Invalid passcode. Please try again.', 'error');
+                        document.getElementById('passcode').value = '';
+                    }
+                } catch (error) {
+                    showNotification('Invalid passcode. Please try again.', 'error');
+                    document.getElementById('passcode').value = '';
+                }
             } else {
-                showNotification('Invalid passcode. Please try again.', 'error');
-                document.getElementById('passcode').value = '';
+                // Fallback to client-side check
+                if (passcode === ADMIN_PASSCODE) {
+                    sessionStorage.setItem('adminAuth', 'true');
+                    isAuthenticated = true;
+                    showDashboard();
+                    showNotification('Login successful!', 'success');
+                } else {
+                    showNotification('Invalid passcode. Please try again.', 'error');
+                    document.getElementById('passcode').value = '';
+                }
             }
         });
 
@@ -200,17 +231,62 @@
         }
 
         // Logout
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', async function(e) {
             if (e.target && e.target.id === 'logoutBtn') {
                 e.preventDefault();
+                if (window.FREE2SLEEP_API) {
+                    try {
+                        await window.FREE2SLEEP_API.logout();
+                    } catch (err) {
+                        console.error('Logout error:', err);
+                    }
+                }
                 sessionStorage.removeItem('adminAuth');
                 location.reload();
             }
         });
 
         // Load dashboard statistics
-        function loadDashboardStats() {
-            // Load from localStorage
+        async function loadDashboardStats() {
+            if (window.FREE2SLEEP_API) {
+                try {
+                    // Load from API
+                    const [clientResult, bedResult, showerResult, referralResult] = await Promise.all([
+                        window.FREE2SLEEP_API.getClientIntakes(),
+                        window.FREE2SLEEP_API.getBedIntakes(),
+                        window.FREE2SLEEP_API.getShowerSignups(),
+                        window.FREE2SLEEP_API.getReferrals()
+                    ]);
+                    
+                    const clientIntakes = clientResult?.data?.intakes || [];
+                    const bedData = bedResult?.data || {};
+                    const showerSignups = showerResult?.data?.signups || [];
+                    const referrals = referralResult?.data?.referrals || [];
+                    
+                    document.getElementById('adminClientCount').textContent = clientIntakes.length;
+                    document.getElementById('adminBedCount').textContent = bedData.available || 0;
+                    
+                    // Count today's appointments
+                    const today = new Date().toDateString();
+                    const todayAppointments = showerSignups.filter(s => {
+                        const date = new Date(s.preferred_date || s.preferredDate);
+                        return date.toDateString() === today;
+                    }).length;
+                    document.getElementById('adminAppointments').textContent = todayAppointments;
+                    
+                    document.getElementById('adminPendingForms').textContent = 
+                        clientIntakes.length + (bedData.total || 0) + referrals.length;
+                } catch (error) {
+                    console.error('Failed to load dashboard stats:', error);
+                    // Fallback to localStorage
+                    loadDashboardStatsFromLocalStorage();
+                }
+            } else {
+                loadDashboardStatsFromLocalStorage();
+            }
+        }
+        
+        function loadDashboardStatsFromLocalStorage() {
             const clientIntakes = JSON.parse(localStorage.getItem('client-intake-form') || '[]');
             const bedIntakes = JSON.parse(localStorage.getItem('bed-intake-form') || '[]');
             const showerSignups = JSON.parse(localStorage.getItem('shower-signup-form') || '[]');
@@ -228,8 +304,7 @@
         }
 
         // View data function
-        function viewData(formType) {
-            const data = JSON.parse(localStorage.getItem(formType) || '[]');
+        async function viewData(formType) {
             const modal = document.getElementById('dataModal');
             const content = document.getElementById('modalContent');
             const title = document.getElementById('modalTitle');
@@ -244,6 +319,48 @@
             };
             title.textContent = titles[formType] || 'Data Viewer';
             
+            // Show loading
+            content.innerHTML = '<p style="text-align: center; color: var(--text-dark);">Loading...</p>';
+            modal.style.display = 'block';
+            
+            let data = [];
+            
+            if (window.FREE2SLEEP_API) {
+                try {
+                    // Fetch from API based on form type
+                    let result;
+                    switch (formType) {
+                        case 'client-intake-form':
+                            result = await window.FREE2SLEEP_API.getClientIntakes();
+                            data = result?.data?.intakes || [];
+                            break;
+                        case 'bed-intake-form':
+                            result = await window.FREE2SLEEP_API.getBedIntakes();
+                            data = result?.data?.intakes || [];
+                            break;
+                        case 'shower-signup-form':
+                            result = await window.FREE2SLEEP_API.getShowerSignups();
+                            data = result?.data?.signups || [];
+                            break;
+                        case 'laundry-registration-form':
+                            result = await window.FREE2SLEEP_API.getLaundryRegistrations();
+                            data = result?.data?.registrations || [];
+                            break;
+                        case 'referral-form':
+                            result = await window.FREE2SLEEP_API.getReferrals();
+                            data = result?.data?.referrals || [];
+                            break;
+                        default:
+                            data = JSON.parse(localStorage.getItem(formType) || '[]');
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch data:', error);
+                    data = JSON.parse(localStorage.getItem(formType) || '[]');
+                }
+            } else {
+                data = JSON.parse(localStorage.getItem(formType) || '[]');
+            }
+            
             // Display data
             if (data.length === 0) {
                 content.innerHTML = '<p style="text-align: center; color: var(--text-dark);">No data available yet.</p>';
@@ -251,7 +368,7 @@
                 let tableHTML = '<table class="data-table"><thead><tr>';
                 
                 // Get keys from first object
-                const keys = Object.keys(data[0]).filter(k => k !== 'id');
+                const keys = Object.keys(data[0]).filter(k => k !== 'id' && k !== 'updated_at');
                 keys.forEach(key => {
                     tableHTML += `<th>${formatKey(key)}</th>`;
                 });
@@ -270,8 +387,6 @@
                 tableHTML += '</tbody></table>';
                 content.innerHTML = tableHTML;
             }
-            
-            modal.style.display = 'block';
         }
 
         // Close modal

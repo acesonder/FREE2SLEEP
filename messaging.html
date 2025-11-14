@@ -115,6 +115,7 @@
         </div>
     </footer>
 
+    <script src="js/api-client.js"></script>
     <script src="js/main.js"></script>
     <script>
         let currentConversation = 'staff';
@@ -150,13 +151,35 @@
         });
 
         // Load conversation
-        function loadConversation(convId) {
+        async function loadConversation(convId) {
             const conv = conversations[convId];
             document.getElementById('chatTitle').innerHTML = `<i class="fas fa-user-circle"></i> ${conv.title}`;
             
             const chatMessages = document.getElementById('chatMessages');
-            chatMessages.innerHTML = '';
+            chatMessages.innerHTML = '<p style="text-align: center;">Loading messages...</p>';
             
+            // Try to load messages from API
+            if (window.FREE2SLEEP_API) {
+                try {
+                    const result = await window.FREE2SLEEP_API.getMessages(convId);
+                    const apiMessages = result?.data?.messages || [];
+                    
+                    // Merge API messages with local conversation messages
+                    conv.messages = [
+                        ...conv.messages.filter(m => m.type === 'received'), // Keep default welcome messages
+                        ...apiMessages.map(m => ({
+                            type: m.sender_type === 'client' ? 'sent' : 'received',
+                            sender: m.sender_name || m.sender_type,
+                            text: m.message_content,
+                            time: new Date(m.timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+                        }))
+                    ];
+                } catch (error) {
+                    console.error('Failed to load messages:', error);
+                }
+            }
+            
+            chatMessages.innerHTML = '';
             conv.messages.forEach(msg => {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${msg.type}`;
@@ -172,7 +195,7 @@
         }
 
         // Send message
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('messageInput');
             const text = input.value.trim();
             
@@ -180,14 +203,25 @@
                 const now = new Date();
                 const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 
+                // Add to local conversation immediately
                 conversations[currentConversation].messages.push({
                     type: 'sent',
                     text: text,
                     time: time
                 });
                 
-                loadConversation(currentConversation);
                 input.value = '';
+                loadConversation(currentConversation);
+                
+                // Send to API
+                if (window.FREE2SLEEP_API) {
+                    try {
+                        await window.FREE2SLEEP_API.sendMessage(currentConversation, text, 'client', 'User');
+                    } catch (error) {
+                        console.error('Failed to send message:', error);
+                        // Message already displayed locally, so no need to show error to user
+                    }
+                }
                 
                 // Simulate response after 2 seconds
                 setTimeout(() => {

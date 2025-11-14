@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - FREE2SLEEP</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .test-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>FREE2SLEEP API Test Page</h1>
+        <p>This page tests the MySQL database backend and PHP API endpoints.</p>
+        
+        <div class="test-section">
+            <h2>1. Database Connection Test</h2>
+            <button onclick="testConnection()">Test Connection</button>
+            <div id="connection-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. Client Intake Test</h2>
+            <button onclick="testClientIntake()">Create Test Client Intake</button>
+            <button onclick="getClientIntakes()">Get All Client Intakes</button>
+            <div id="client-intake-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. Bed Intake Test</h2>
+            <button onclick="testBedIntake()">Create Test Bed Intake</button>
+            <button onclick="getBedIntakes()">Get Bed Statistics</button>
+            <div id="bed-intake-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. Authentication Test</h2>
+            <button onclick="testLogin()">Test Login (079777)</button>
+            <button onclick="testCheckAuth()">Check Auth Status</button>
+            <button onclick="testLogout()">Test Logout</button>
+            <div id="auth-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. Messaging Test</h2>
+            <button onclick="testSendMessage()">Send Test Message</button>
+            <button onclick="testGetMessages()">Get Messages</button>
+            <div id="message-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>6. Preferences Test</h2>
+            <button onclick="testSavePreferences()">Save Preferences</button>
+            <button onclick="testGetPreferences()">Get Preferences</button>
+            <div id="pref-result" class="test-result" style="display:none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Test Summary</h2>
+            <div id="summary" class="test-result info">
+                Click buttons above to test API endpoints. Results will appear below each test.
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api-client.js"></script>
+    <script>
+        const api = window.FREE2SLEEP_API;
+        let testResults = { passed: 0, failed: 0 };
+
+        function showResult(elementId, message, isSuccess) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = `test-result ${isSuccess ? 'success' : 'error'}`;
+            element.textContent = message;
+            
+            if (isSuccess) {
+                testResults.passed++;
+            } else {
+                testResults.failed++;
+            }
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const summary = document.getElementById('summary');
+            summary.className = 'test-result info';
+            summary.innerHTML = `
+                <strong>Test Summary:</strong><br>
+                Passed: ${testResults.passed}<br>
+                Failed: ${testResults.failed}<br>
+                Total: ${testResults.passed + testResults.failed}
+            `;
+        }
+
+        async function testConnection() {
+            try {
+                const result = await api.getPreferences();
+                showResult('connection-result', 
+                    '✓ Connection successful!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('connection-result', 
+                    '✗ Connection failed:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testClientIntake() {
+            try {
+                const testData = {
+                    firstName: 'Test',
+                    lastName: 'Client',
+                    dob: '1990-01-01',
+                    phone: '555-TEST',
+                    email: 'test@example.com',
+                    city: 'Cobourg',
+                    province: 'ON'
+                };
+                const result = await api.createClientIntake(testData);
+                showResult('client-intake-result', 
+                    '✓ Client intake created successfully!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('client-intake-result', 
+                    '✗ Failed to create client intake:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function getClientIntakes() {
+            try {
+                const result = await api.getClientIntakes(10, 0);
+                const count = result?.data?.intakes?.length || 0;
+                showResult('client-intake-result', 
+                    `✓ Retrieved ${count} client intake(s)\n` + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('client-intake-result', 
+                    '✗ Failed to get client intakes:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testBedIntake() {
+            try {
+                const testData = {
+                    firstName: 'Test',
+                    lastName: 'Bed',
+                    dob: '1985-05-15',
+                    phone: '555-BED1',
+                    arrivalDate: new Date().toISOString().split('T')[0],
+                    estimatedStay: '1-night'
+                };
+                const result = await api.createBedIntake(testData);
+                showResult('bed-intake-result', 
+                    '✓ Bed intake created successfully!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('bed-intake-result', 
+                    '✗ Failed to create bed intake:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function getBedIntakes() {
+            try {
+                const result = await api.getBedIntakes();
+                showResult('bed-intake-result', 
+                    `✓ Bed Statistics:\n` +
+                    `Total Intakes: ${result?.data?.total || 0}\n` +
+                    `Active Beds: ${result?.data?.active || 0}\n` +
+                    `Available Beds: ${result?.data?.available || 0}\n\n` +
+                    JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('bed-intake-result', 
+                    '✗ Failed to get bed intakes:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const result = await api.login('079777');
+                showResult('auth-result', 
+                    '✓ Login successful!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('auth-result', 
+                    '✗ Login failed:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testCheckAuth() {
+            try {
+                const result = await api.checkAuth();
+                const authenticated = result?.data?.authenticated || false;
+                showResult('auth-result', 
+                    `${authenticated ? '✓' : '✗'} Auth Status: ${authenticated ? 'Authenticated' : 'Not Authenticated'}\n` + 
+                    JSON.stringify(result, null, 2), 
+                    authenticated);
+            } catch (error) {
+                showResult('auth-result', 
+                    '✗ Auth check failed:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testLogout() {
+            try {
+                const result = await api.logout();
+                showResult('auth-result', 
+                    '✓ Logout successful!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('auth-result', 
+                    '✗ Logout failed:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testSendMessage() {
+            try {
+                const result = await api.sendMessage('staff', 'This is a test message from API test page', 'client', 'Test User');
+                showResult('message-result', 
+                    '✓ Message sent successfully!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('message-result', 
+                    '✗ Failed to send message:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testGetMessages() {
+            try {
+                const result = await api.getMessages('staff', 20, 0);
+                const count = result?.data?.messages?.length || 0;
+                showResult('message-result', 
+                    `✓ Retrieved ${count} message(s)\n` + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('message-result', 
+                    '✗ Failed to get messages:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testSavePreferences() {
+            try {
+                const result = await api.savePreferences('en', { theme: 'light', testMode: true });
+                showResult('pref-result', 
+                    '✓ Preferences saved successfully!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('pref-result', 
+                    '✗ Failed to save preferences:\n' + error.message, 
+                    false);
+            }
+        }
+
+        async function testGetPreferences() {
+            try {
+                const result = await api.getPreferences();
+                showResult('pref-result', 
+                    '✓ Preferences retrieved successfully!\n' + JSON.stringify(result, null, 2), 
+                    true);
+            } catch (error) {
+                showResult('pref-result', 
+                    '✗ Failed to get preferences:\n' + error.message, 
+                    false);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('API Test Page loaded');
+            console.log('API Client available:', !!window.FREE2SLEEP_API);
+        });
+    </script>
+</body>
+</html>
